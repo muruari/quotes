@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Trips</title>
+    <style>
+            *{
+                font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            }
+            body{
+                background-color: black;
+            }
+            #wrapper{
+                padding: 10px 50px;
+                width: 1200px;
+                min-height: 800px;
+                background-color: rgb(218, 235, 253);
+            }
+            .quoter{
+                font-weight: bolder;
+            }
+            .posted_by{
+                font-weight: bolder;
+                font-size: 12px;
+                text-decoration-style: italic;
+            }
+            .quote_text{
+                margin-left: 25px;
+                font-style: italic;
+            }
+            .button{
+                background-color: rgb(81, 142, 255);
+                text-decoration: none;
+                font-weight: bolder;
+                color: rgb(218, 235, 253);
+                border-radius: 10px;
+            }
+            #left_content{
+                display: inline-block;
+                width: 500px;
+                height: auto;
+                vertical-align: top;
+
+            }
+            #right_content{
+                display: inline-block;
+                width: 500px;
+                height: auto;
+                vertical-align: top;
+
+            }
+            a{
+                text-decoration: none;
+            }
+            h5{
+                margin-left: 250px;
+            }
+            h1, h5{
+                display: inline-block;
+            }
+            .posted_by a{
+                color: rgb(81, 142, 255);
+            }
+            #contribute{
+                display: inline-block;
+                width: 500px;
+            }
+
+        </style>
+    </head>
+<body>
+    <div id = "wrapper">
+        
+        <div id="header">
+            <h1>Welcome {{ user_name }}!</h1>
+            <h5><a href="/logout"><button class = "button">Logout</button></a></h5>
+        </div>
+        
+        <br>
+        
+        <div id = "left_content">
+            
+            <h2>Quotable Quotes</h2>
+            
+            {% for quote in all_quotes %}            
+            
+            <div class = "quote">
+                <p class = "quoter">{{ quote.quoter }}: </p>
+                <p class ="quote_text">{{ quote.quote_text }}</p>
+               <p class = "posted_by">Posted by:  <a href = "quote/{{ quote.posted_by.id }}">{{ quote.posted_by.name }}</a></p>
+                <a href =  "/add_quote/{{ quote.id }}"><button class = "button">Add to My List</button></a>
+            </div>
+            {% endfor %}
+        </div>
+        <div id = "right_content">
+            
+            <h2>Your Favorites</h2>
+            
+            {% for quote in my_quotes %}
+            
+            <div class = "quote">
+                <p class = "quoter">{{ quote.quoter }}: </p>
+                <p class ="quote_text">{{ quote.quote_text }}</p>
+                <p class = "posted_by">Posted by:  <a href = "quote/{{ quote.posted_by.id }}">{{ quote.posted_by.name }}</a></p>
+                <a href = "/remove_quote/{{ quote.id }}"><button class = "button">Remove From My List</button></a>
+            </div>
+
+            {% endfor %}
+            <div id = "contribute">
+                <h2>Contribute a Quote:</h2>
+                <form action = "/create_quote" method = "POST">
+                    {% csrf_token %}
+                    <label for = "quote_by">Quoted By:</label>
+                    <input type = "text" id = "quote_by" name = "quote_by">
+                    <br>
+                    <label for = "quote_text_input">Message:</label>
+                    <input type = "text_area" resize="none" id = "quote_text_input" name = "quote_text_input">
+                    <br>
+                    <input type = "submit" value = "Submit" class = "button"></input>
+                    
+                </form>
+        
+            </div>
+        </div>
+    </div>
+</body>
+</html>

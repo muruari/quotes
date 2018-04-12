@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Trip Details</title>
+</head>
+<style>
+        *{
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+        
+        }
+        #wrapper{
+                padding: 0px 25px;
+                width: 1000px;
+                height: auto;
+        }
+</style>
+    <body>
+        <a href="/dashboard">Home</a> | <a href="/logout">Logout</a>
+
+
+        <h1>{{ trip.destination }}</h1>
+        <p>Planned by: {{ planned_by.name }}</p>
+        <p>Description: {{ trip.description }}</p>
+        <p>Departs: {{ trip.depart_date }}</p>
+        <p>Returns: {{ trip.return_date }}</p>
+
+
+        <h3>Other Users Joining This Trip:</h3>
+        {% for user in reserved %}
+            <p>{{ user.name }}</p>
+        {% endfor %}
+        
+    </body>
+</html>
